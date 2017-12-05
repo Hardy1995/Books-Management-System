@@ -72,7 +72,7 @@
     </div>
 </nav>
 
-<div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
+<div style="position: relative;top: 20%;width: 80%;margin-left: 10%;padding:4%;">
             <form action="book_add_do.html" method="post" id="addbook" >
                 <div class="form-group">
                     <label for="name">图书名</label>

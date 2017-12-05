@@ -92,7 +92,7 @@ public class LoginController {
 
     @RequestMapping("/admin_repasswd_do")
     public String reAdminPasswdDo(HttpServletRequest request,String oldPasswd,String newPasswd,String reNewPasswd,RedirectAttributes redirectAttributes ) {
-
+    	System.out.println(oldPasswd+ "+" + reNewPasswd + "+" +newPasswd);
         Admin admin=(Admin) request.getSession().getAttribute("admin");
         int id=admin.getAdminId();
         String passwd=loginService.getAdminPasswd(id);

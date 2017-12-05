@@ -10,6 +10,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 @Controller
@@ -84,6 +86,17 @@ public class BookController {
 
     @RequestMapping("/book_add_do.html")
     public String addBookDo(BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes){
+    	try {
+    		bookAddCommand.setAuthor(new String(bookAddCommand.getAuthor().getBytes("iso-8859-1"),"utf-8")); 
+    		bookAddCommand.setIntroduction(new String(bookAddCommand.getIntroduction().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setLanguage(new String(bookAddCommand.getLanguage().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setName(new String(bookAddCommand.getName().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setPublish(new String(bookAddCommand.getPublish().getBytes("iso-8859-1"),"utf-8"));
+
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         Book book=new Book();
         book.setBookId(0);
         book.setPrice(bookAddCommand.getPrice());
@@ -122,6 +135,17 @@ public class BookController {
 
     @RequestMapping("/book_edit_do.html")
     public String bookEditDo(HttpServletRequest request,BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes){
+    	try {
+    		bookAddCommand.setAuthor(new String(bookAddCommand.getAuthor().getBytes("iso-8859-1"),"utf-8")); 
+    		bookAddCommand.setIntroduction(new String(bookAddCommand.getIntroduction().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setLanguage(new String(bookAddCommand.getLanguage().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setName(new String(bookAddCommand.getName().getBytes("iso-8859-1"),"utf-8"));
+    		bookAddCommand.setPublish(new String(bookAddCommand.getPublish().getBytes("iso-8859-1"),"utf-8"));
+
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         long bookId=Integer.parseInt( request.getParameter("id"));
         Book book=new Book();
         book.setBookId(bookId);

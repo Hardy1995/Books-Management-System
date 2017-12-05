@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,6 +82,16 @@ public class ReaderController {
 
     @RequestMapping("reader_edit_do.html")
     public String readerInfoEditDo(HttpServletRequest request,String name,String sex,String birth,String address,String telcode,RedirectAttributes redirectAttributes){
+    	
+    	try {
+			name = new String(name.getBytes("iso-8859-1"),"utf-8");
+			sex = new String(sex.getBytes("iso-8859-1"),"utf-8");
+			address = new String(address.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	System.out.println(name + "eweqw:" + address);
         int readerId= Integer.parseInt(request.getParameter("id"));
         ReaderCard readerCard = loginService.findReaderCardByUserId(readerId);
         String oldName=readerCard.getName();
@@ -189,6 +201,14 @@ public class ReaderController {
     //管理员功能--读者信息添加
     @RequestMapping("reader_add_do.html")
     public String readerInfoAddDo(String name,String sex,String birth,String address,String telcode,int readerId,RedirectAttributes redirectAttributes){
+    	try {
+			name = new String(name.getBytes("iso-8859-1"),"utf-8");
+			sex = new String(sex.getBytes("iso-8859-1"),"utf-8");
+			address = new String(address.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date nbirth=new Date();
         try{

@@ -7,13 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String path = request.getContextPath();
+%>
 <html>
 <head>
     <title>图书馆首页</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js" ></script>
-    <script src="js/js.cookie.js"></script>
+    <link rel="stylesheet" href="<%=path %>/css/bootstrap.min.css">
+    <script src="<%=path %>/js/jquery-3.2.1.js"></script>
+    <script src="<%=path %>/js/bootstrap.min.js" ></script>
+    <script src="<%=path %>/js/js.cookie.js"></script>
+    <script src="<%=path %>/js/common.js"></script>
     <style>
         #myCarousel{
             margin-left: 2%;
@@ -182,13 +186,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img src="img/82839-106.jpg" alt="第一张">
+            <img src="<%=path %>/img/82839-106.jpg" alt="第一张">
         </div>
         <div class="item">
-            <img src="img/105905-106.jpg" alt="第二张">
+            <img src="<%=path %>/img/105905-106.jpg" alt="第二张">
         </div>
         <div class="item">
-            <img src="img/296494-106.jpg" alt="第三张">
+            <img src="<%=path %>/img/296494-106.jpg" alt="第三张">
         </div>
 
     </div>
@@ -263,7 +267,6 @@
             var id =$("#id").val();
             var passwd=$("#passwd").val();
             var remember=$("#remember").prop('checked');
-
             if( id=='' && passwd==''){
                 $("#info").text("提示:账号和密码不能为空");
             }
@@ -279,7 +282,7 @@
             else {
                 $.ajax({
                     type: "POST",
-                    url: "/api/loginCheck",
+                    url: url + "/api/loginCheck",
                     data: {
                         id:id ,
                         passwd: passwd
@@ -290,15 +293,15 @@
                             $("#info").text("提示:账号或密码错误！");
                         } else if(data.stateCode.trim() == "1") {
                             $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/admin_main.html";
+                            window.location.href=url + "/admin_main.html";
                         } else if(data.stateCode.trim() == "2"){
                             if(remember){
                                 rememberLogin(id,passwd,remember);
                             }else {
-                                Cookies.remove('loginStatus');
+                                Cookies.remove(url + 'loginStatus');
                             }
                             $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/reader_main.html";
+                            window.location.href=url + "/reader_main.html";
 
 
                         }
